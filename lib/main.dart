@@ -46,19 +46,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -76,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Column(
+        child: Row(
           // Column is also a layout widget. It takes a list of children and
           // arranges them vertically. By default, it sizes itself to fit its
           // children horizontally, and tries to be as tall as its parent.
@@ -93,21 +80,42 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            NoteRain(),
+            //CustomPaint(size: Size(100, 100), painter: Sky()),
+            //Expanded(
+            //    child: CustomPaint(
+            //        size: Size(double.infinity, 200), painter: Sky()),
+            //    flex: 1),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+class Sky extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    var x = size.width / 2;
+    canvas.drawCircle(Offset(x, size.height / 3), size.width / 4,
+        Paint()..color = new Color(0xFF0099FF));
+  }
+
+  @override
+  bool shouldRepaint(Sky oldDelegate) {
+    return false;
+  }
+}
+
+class NoteRainState extends State<NoteRain> {
+  int data = 41;
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(size: Size(100, data / 100), painter: Sky());
+  }
+}
+
+class NoteRain extends StatefulWidget {
+  @override
+  NoteRainState createState() => NoteRainState();
 }

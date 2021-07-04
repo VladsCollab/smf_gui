@@ -46,19 +46,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -93,21 +80,49 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+            Expanded(
+              flex: 9,
+              child: Container(
+                color: Colors.green,
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Expanded(
+              flex: 1,
+              child: Row(children: keys(octaves: 3)),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+List<Widget> keys({int octaves = 1}) {
+  var keys = <Widget>[];
+  for (var octave = 0; octave < octaves; octave++) {
+    keys.add(key(Colors.white)); // C
+    keys.add(key(Colors.black)); // C#
+    keys.add(key(Colors.white)); // D
+    keys.add(key(Colors.black)); // D#
+    keys.add(key(Colors.white)); // E
+    keys.add(key(Colors.white)); // F
+    keys.add(key(Colors.black)); // F#
+    keys.add(key(Colors.white)); // G
+    keys.add(key(Colors.black)); // G#
+    keys.add(key(Colors.white)); // A
+    keys.add(key(Colors.black)); // A#
+    keys.add(key(Colors.white)); // B
+  }
+  return keys;
+}
+
+Widget key(Color color) {
+  return Expanded(
+    child: Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black, width: 1),
+        color: color,
+      ),
+    ),
+  );
 }
